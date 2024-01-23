@@ -1,3 +1,25 @@
-# This file stores configurations for your Shopify app.
 
-scopes = "write_products"
+
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+name = "ig"
+client_id = "bacc7400f013318fdb7f1ca961d546aa"
+application_url = "https://navi-app.onrender.com"
+embedded = true
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "read_products,read_themes,read_files,write_files,read_metaobject_definitions,write_metaobject_definitions,read_metaobjects,write_metaobjects,read_orders"
+
+[auth]
+redirect_urls = [
+  "https://navi-app.onrender.com/auth/callback",
+  "https://navi-app.onrender.com/auth/shopify/callback",
+  "https://navi-app.onrender.com/api/auth/callback"
+]
+
+[webhooks]
+api_version = "2023-10"
+
+[pos]
+embedded = false
