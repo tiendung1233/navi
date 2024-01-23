@@ -27,6 +27,13 @@ const shopify = shopifyApp({
   },
   hooks: {
     afterAuth: async ({ session }) => {
+      console.log("afterAuth", {
+        key: process.env.SHOPIFY_API_KEY,
+        key2: process.env.SHOPIFY_API_SECRET,
+        key3: process.env.SHOPIFY_APP_URL,
+        key4: process.env.SCOPES,
+        
+      });
       shopify.registerWebhooks({ session });
     },
   },
