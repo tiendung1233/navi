@@ -27,8 +27,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 };
 
 export const action = async ({ request }: ActionFunctionArgs) => {
-  const errors = loginErrorMessage(await login(request));
+  console.log('errors-------')
 
+  const errors = loginErrorMessage(await login(request));
+  console.log('errors-------1', errors)
   return json({
     errors,
   });
