@@ -7,10 +7,13 @@ import {
 import { authenticate } from "../shopify.server";
 import { Form, redirect, useFetcher } from "@remix-run/react";
 import { useEffect } from "react";
+import { urlApp } from "~/util/store";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-  await authenticate.admin(request);
-
+  const { sessionToken } = await authenticate.admin(request);
+  urlApp.setState(() => ({
+    url: `${sessionToken.iss}/apps/${sessionToken.aud}`
+  }))
   return null;
 };
 interface AuthRedirectResponse {
