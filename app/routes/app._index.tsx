@@ -29,7 +29,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   url += 'client_key=aw530k0gdl53hod8';
   url += '&scope=user.info.basic';
   url += '&response_type=code';
-  url += '&redirect_uri=https://rc.navi.io.vn/social/tiktok/oauth';
+  url += `&redirect_uri=${process.env.REDIRECT_URL}`;
   url += '&state=' + csrfState;
   console.log('url', url);
 
