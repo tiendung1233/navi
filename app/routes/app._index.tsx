@@ -14,6 +14,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   urlApp.setState(() => ({
     url: `${sessionToken.iss}/apps/${sessionToken.aud}`
   }))
+  console.log('url-------}', `${sessionToken.iss}/apps/${sessionToken.aud}`);
   return null;
 };
 interface AuthRedirectResponse {
