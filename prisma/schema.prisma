@@ -6,12 +6,13 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:dev.sqlite"
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
 }
 
 model Session {
-  id          String    @id
+  id          String    @unique
+  sessionId   String    @id @default(auto()) @map("_id") @db.ObjectId
   shop        String
   state       String
   isOnline    Boolean   @default(false)
@@ -19,4 +20,19 @@ model Session {
   expires     DateTime?
   accessToken String
   userId      BigInt?
+}
+
+model AccountTiktok {
+  id          String         @unique
+  sessionId   String         @id @default(auto()) @map("_id") @db.ObjectId
+  accessToken String         @unique
+  shop        String         @unique
+  profile     ProfileTiktok?
+}
+
+type ProfileTiktok {
+  display_name String
+  open_id      String
+  union_id     String
+  avatar_url   String
 }

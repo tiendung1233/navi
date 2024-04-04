@@ -1,13 +1,10 @@
-import { accountTiktok } from "../store";
 
-export const useProfile = async () => {
+export const getProfileTiktok = async (accessToken: string) => {
   const fields = 'open_id,union_id,avatar_url,display_name';
-  const { accessToken } = accountTiktok.getState()
-  console.log('data', accessToken);
   const options = {
     method: 'GET',
     headers: {
-      // Authorization: `Bearer ${accessToken}`,s
+      Authorization: `Bearer ${accessToken}`,
     },
   };
 
@@ -22,5 +19,6 @@ export const useProfile = async () => {
     }
   } catch (error) {
     console.error('Error fetching user info:', error);
+    return null
   }
 }
