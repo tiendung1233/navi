@@ -2,7 +2,7 @@
   "name": "navi",
   "private": true,
   "scripts": {
-    "build": "npm run predev && NODE_ENV=production  && remix build",
+    "build": "npm run predev && NODE_ENV=production remix build",
     "predev": "prisma generate && prisma db push",
     "dev": "shopify app dev",
     "config:link": "shopify app config link",
