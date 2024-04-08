@@ -1,11 +1,11 @@
-import { accountTiktok } from "../store";
-
-export const useVideoList = async () => {
-  const { accessToken } = accountTiktok.getState()
+export async function getVideoTiktok(shop: string) {
+  const account = await prisma.accountTiktok.findFirst({
+    where: { shop },
+  });
   const options = {
     method: 'POST',
     headers: {
-      Authorization: `Bearer ${accessToken}`,
+      Authorization: `Bearer ${account?.accessTokenData?.access_token}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ "max_count": 20 }),

@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { useFetcher, useLoaderData } from "@remix-run/react";
+import { useFetcher, useLoaderData, useNavigate } from "@remix-run/react";
 import {
-  AccountConnection,
+  Card,
+  EmptyState,
   Page
 } from "@shopify/polaris";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect } from "react";
+import { AccountConnectionHandler } from "~/components/AccountTiktokConnection";
 import { deleteAccount, getAccount } from "~/server/controllers/tiktok/accountTiktok.server";
 import { urlApp } from "~/util/store";
 import { authenticate } from "../shopify.server";
@@ -20,7 +22,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   }))
   return json({ accountTiktok, shop });
 };
-interface AuthRedirectResponse {
+export interface AuthRedirectResponse {
   url?: string;
 }
 
@@ -56,6 +58,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   }
 };
 export default function Index() {
+  const navigation = useNavigate()
   const fetcher = useFetcher<AuthRedirectResponse>();
   const { accountTiktok } = useLoaderData<typeof loader>()
   useEffect(() => {
@@ -63,42 +66,25 @@ export default function Index() {
       window.open(fetcher.data.url, "_blank");
     }
   }, [fetcher.data]);
-  useEffect(() => {
 
-  })
-  const [connected, setConnected] = useState(accountTiktok ? true : false);
-  const titleProfile = connected ? String(accountTiktok?.profile?.display_name) : 'Navi tiktok app'
-  const avatarUrl = String(accountTiktok?.profile?.avatar_url)
-  const handleAction = useCallback(() => {
-    if (!connected) {
-      fetcher.submit({ type: 'connect' }, { method: 'post' });
-    } else {
-      fetcher.submit({ type: 'disconnect' }, { method: 'post' });
-      setConnected(false);
-    }
-  }, [connected, fetcher]);
-
-
-  const buttonText = connected ? 'Disconnect' : 'Connect With Tiktok';
-  const details = connected ? 'Account connected' : 'No account connected';
-  const terms = connected ? null : (
-    <p>
-      By clicking <strong>Connect With Tiktok</strong>, you can connect your tiktok account to our application.
-    </p>
-  );
   return (
     <Page>
-      <AccountConnection
-        connected={connected}
-        title={titleProfile}
-        action={{
-          content: buttonText,
-          onAction: handleAction,
-        }}
-        details={details}
-        termsOfService={terms}
-        avatarUrl={avatarUrl}
-      />
+      <AccountConnectionHandler accountTiktok={accountTiktok} fetcher={fetcher} />
+      <Card>
+        <EmptyState
+          heading="Manage your inventory transfers"
+          action={{
+            content: 'Add tiktok feed',
+            onAction: () => {
+              navigation('add')
+            }
+          }}
+          image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"
+        >
+          <p>Track and receive your incoming inventory from suppliers.</p>
+        </EmptyState>
+      </Card>
+
     </Page>
   );
 }

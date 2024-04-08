@@ -23,11 +23,11 @@ model Session {
 }
 
 model AccountTiktok {
-  id          String         @unique
-  sessionId   String         @id @default(auto()) @map("_id") @db.ObjectId
-  accessToken String         @unique
-  shop        String         @unique
-  profile     ProfileTiktok?
+  id              String           @unique
+  sessionId       String           @id @default(auto()) @map("_id") @db.ObjectId
+  accessTokenData AccessTokenData?
+  shop            String           @unique
+  profile         ProfileTiktok?
 }
 
 type ProfileTiktok {
@@ -35,4 +35,14 @@ type ProfileTiktok {
   open_id      String
   union_id     String
   avatar_url   String
+}
+
+type AccessTokenData {
+  access_token       String
+  expires_in         Int
+  open_id            String
+  refresh_expires_in Int
+  refresh_token      String
+  scope              String
+  token_type         String
 }

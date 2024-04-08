@@ -1,7 +1,9 @@
 export interface IUrlApp {
   url: string
 }
-
+export interface IFeedOptionSetiing {
+  option: string
+}
 export interface IAccountTiktok {
   accessToken: string
   expiresIn: number

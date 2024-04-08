@@ -41,16 +41,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const accessTokenData = await fetchTikTokAccessToken(String(code));
   const { access_token } = accessTokenData
   const profile = await getProfileTiktok(access_token)
-  // const { access_token, expires_in, open_id, refresh_expires_in, refresh_token, token_type } = accessTokenData
-  // accountTiktok.setState(() => ({
-  //   accessToken: access_token,
-  //   expiresIn: expires_in,
-  //   openId: open_id,
-  //   refreshExpiresIn: refresh_expires_in,
-  //   refreshToken: refresh_token,
-  //   tokenType: token_type
-  // }))
-  await accountTiktok(access_token, shopDomain, profile?.userinfoData?.data?.user)
+  console.log({ accessTokenData });
+  await accountTiktok(accessTokenData, shopDomain, profile?.userinfoData?.data?.user)
 
   const data = urlApp.getState()
   return redirect(data.url);

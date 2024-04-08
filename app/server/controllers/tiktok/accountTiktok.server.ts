@@ -1,9 +1,9 @@
 import prisma from "~/db.server";
-export async function accountTiktok(accessToken: string, shop: string, profile: any) {
+export async function accountTiktok(accessTokenData: any, shop: string, profile: any) {
   await prisma.accountTiktok.create({
     data: {
       id: '',
-      accessToken,
+      accessTokenData,
       shop,
       profile,
     }
