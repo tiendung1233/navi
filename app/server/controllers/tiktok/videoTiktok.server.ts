@@ -1,7 +1,7 @@
+import { getAccount } from "./accountTiktok.server";
+
 export async function getVideoTiktok(shop: string) {
-  const account = await prisma.accountTiktok.findFirst({
-    where: { shop },
-  });
+  const account = await getAccount(shop)
   const options = {
     method: 'POST',
     headers: {
