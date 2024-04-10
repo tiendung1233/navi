@@ -1,14 +1,14 @@
 import { Select } from "@shopify/polaris";
 import { useCallback } from "react";
 import { useStore } from "~/libs/external-store";
-import { feedLayoutSetting } from "~/util/store";
+import { feedSetting } from "~/util/store";
 import SliderInput from "../SliderInput";
 
 export default function FeedLayout() {
-  const { layout, spacing, item_in_column } = useStore(feedLayoutSetting, state => state)
+  const { layout, spacing, item_in_column } = useStore(feedSetting, state => state)
   const handleSelectChange = useCallback(
     (value: string) => {
-      feedLayoutSetting.setState((prev) => ({
+      feedSetting.setState((prev) => ({
         ...prev,
         layout: value,
 
@@ -22,14 +22,14 @@ export default function FeedLayout() {
     { label: 'Slideshow', value: 'slideshow' },
   ];
   const handleItemsPerRow = (newValue: any, id: any) => {
-    feedLayoutSetting.setState((prev) => ({
+    feedSetting.setState((prev) => ({
       ...prev,
       item_in_column: newValue,
 
     }))
   }
   const handleSpacingItemPerRow = (newValue: any, id: any) => {
-    feedLayoutSetting.setState((prev) => ({
+    feedSetting.setState((prev) => ({
       ...prev,
       spacing: newValue,
     }))

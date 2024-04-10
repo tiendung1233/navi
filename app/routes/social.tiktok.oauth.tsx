@@ -41,7 +41,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const accessTokenData = await fetchTikTokAccessToken(String(code));
   const { access_token } = accessTokenData
   const profile = await getProfileTiktok(access_token)
-  console.log({ accessTokenData });
   await accountTiktok(accessTokenData, shopDomain, profile?.userinfoData?.data?.user)
 
   const data = urlApp.getState()

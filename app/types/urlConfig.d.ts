@@ -12,3 +12,11 @@ export interface IAccountTiktok {
   refreshToken: string
   tokenType: string
 }
+
+export interface IFeedSetting {
+  layout: string,
+  spacing: number,
+  item_in_column: number,
+  status: string[],
+  title: string,
+}

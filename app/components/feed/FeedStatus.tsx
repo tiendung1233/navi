@@ -1,10 +1,15 @@
 import { ChoiceList, LegacyStack } from "@shopify/polaris";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
+import { useStore } from "~/libs/external-store";
+import { feedSetting } from "~/util/store";
 
 export default function FeedStatus() {
-  const [selected, setSelected] = useState<string[]>(['active']);
+  const { status } = useStore(feedSetting, state => state)
 
-  const handleChange = useCallback((value: string[]) => setSelected(value), []);
+  const handleChange = useCallback((value: string[]) => feedSetting.setState((prev) => ({
+    ...prev,
+    status: value
+  })), []);
   return (
     <LegacyStack vertical spacing="extraTight">
       <ChoiceList
@@ -13,7 +18,7 @@ export default function FeedStatus() {
           { label: 'Active', value: 'active' },
           { label: 'Draft', value: 'draft' },
         ]}
-        selected={selected}
+        selected={status}
         onChange={handleChange}
       />
     </LegacyStack>
